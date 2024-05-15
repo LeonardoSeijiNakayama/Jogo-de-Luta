@@ -107,10 +107,10 @@ public class Player extends Entidade{
 
         }else{
             if(t.baixoPress == true && !agachado){
-            agachado = true;
-            if(direcao == "dir"){
+                agachado = true;
+                if(direcao == "dir"){
                 direcao = "agachadoDir";
-            }else if(direcao == "esq"){
+                }else if(direcao == "esq"){
                 direcao = "agachadoEsq";
             }
             
