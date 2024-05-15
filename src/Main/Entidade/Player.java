@@ -46,7 +46,7 @@ public class Player extends Entidade {
         alturaMaxPulo = 300;
         larguraPlayer = 80 * p.escala;
         alturaPlayer = 128 * p.escala;
-        // alturaAgachado = alturaPlayer/2;
+        
         playerVelocidadeAgach = 5;
         agachado = false;
         direcao = "dir";
@@ -101,7 +101,7 @@ public class Player extends Entidade {
             double proporcaoTempoPulo = (double) duracaoPulo / duracaoMaxPulo;
             int alturaPulo = (int) (alturaMaxPulo * Math.sin(proporcaoTempoPulo * Math.PI));
 
-            //System.out.println(andando);
+            
 
             if (direcao == "pulandoEsq" && andando) {
                 x -= velocidade;
@@ -169,24 +169,24 @@ public class Player extends Entidade {
                 velocidade = 10;
             }
 
-            System.out.println(t.esqPress + " " + t.dirPress + "\n");
+            
 
             // mover para esquerda
             if (t.esqPress) {
                 direcao = "esq";
                 andando = true;
-                //System.out.println(andando);
+                
                 x -= velocidade;
             }
             // mover para direita
             else if (t.dirPress) {
                 direcao = "dir";
                 andando = true;
-                //System.out.println(andando);
+                
                 x += velocidade;
             }else if(!t.dirPress && !t.esqPress){
                 andando = false;
-                //System.out.println(andando);
+                
             }
         }
     }
