@@ -23,7 +23,10 @@ public class Player extends Entidade{
     int alturaPlayer ;
     int alturaAgachado ;
     int playerVelocidadeAgach ;
+    long tempoInicialSoco;
+    long tempoMaxSoco;
     boolean agachado;
+    boolean atacando;
 
     public Player(Painel p, EntradaTeclado t){
         this.p = p;
@@ -46,6 +49,9 @@ public class Player extends Entidade{
         playerVelocidadeAgach = 5;
         agachado = false;
         direcao = "dir";
+        tempoInicialSoco = 0; 
+        tempoMaxSoco = 250;
+        atacando = false;
     }
 
     public void getImagemPlayer(){
@@ -101,11 +107,33 @@ public class Player extends Entidade{
                 }else if(direcao == "pulandoEsq"){
                     direcao = "esq";
                 }
-                
-
             }
-
         }else{
+
+            if(t.socoPress == true && !pulando && !agachado && !atacando){
+                atacando = true;
+                tempoInicialSoco = System.currentTimeMillis();
+                if(direcao == "dir"){
+                    direcao = "socoDir";
+                }else if( direcao == "esq"){
+                    direcao = "socoEsq";
+                }
+            }else{
+                if(direcao == "socoDir" || direcao == "socoEsq"){
+                    long tempoDecorridoSoco = System.currentTimeMillis() - tempoInicialSoco ;
+                    
+                    if(tempoDecorridoSoco >= tempoMaxSoco){
+                        atacando = false;
+                        if(direcao == "socoDir"){
+                            direcao = "dir";
+                        }else if(direcao == "socoEsq"){
+                            direcao = "esq";
+                        }
+                    }
+                }
+            }
+            
+
             if(t.baixoPress == true && !agachado){
                 agachado = true;
                 if(direcao == "dir"){
@@ -113,25 +141,25 @@ public class Player extends Entidade{
                 }else if(direcao == "esq"){
                 direcao = "agachadoEsq";
             }
-            
-            velocidade = playerVelocidadeAgach;
-            }else if(!t.baixoPress && agachado){
-                agachado = false;
-                velocidade = 10;
-            }
-            
-            else if(t.esqPress == true){
-                direcao = "esq";
-            x -= velocidade;
+                
+                velocidade = playerVelocidadeAgach;
+                }else if(!t.baixoPress && agachado){
+                    agachado = false;
+                    velocidade = 10;
+                }
+                
+                else if(t.esqPress == true){
+                    direcao = "esq";
+                x -= velocidade;
 
-            }else if(t.dirPress == true){
-                direcao = "dir";
-            x += velocidade;
+                }else if(t.dirPress == true){
+                    direcao = "dir";
+                x += velocidade;
 
+                }
             }
         }
-
-    }
+    
 
     public void draw(Graphics2D g2){
 
@@ -163,6 +191,12 @@ public class Player extends Entidade{
             case "pulandoEsq":
                 imagem = puloEsq;
             break;  
+            case "socoDir":
+                imagem = socoDir;
+            break;
+            case "socoEsq":
+                imagem = socoEsq;
+            break;
         }
 
         g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
