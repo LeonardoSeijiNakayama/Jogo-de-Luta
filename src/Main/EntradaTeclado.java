@@ -37,7 +37,7 @@ public class EntradaTeclado implements KeyListener{
     public void keyReleased(KeyEvent e) {
 
         int codigo = e.getKeyCode();
-
+        
         if(codigo == KeyEvent.VK_W){
             cimaPress = false;
         }

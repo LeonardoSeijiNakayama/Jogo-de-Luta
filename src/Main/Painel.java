@@ -27,9 +27,7 @@ public class Painel extends JPanel implements Runnable{
     Player player = new Player(this, teclado);
 
 
-    int playerX = 500;
-    int playerY = 500;
-    int playerVelocidade = 10;
+    
     boolean pulando;
     int posicaoPuloInic; 
     long tempoPuloInici;

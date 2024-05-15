@@ -10,33 +10,33 @@ import javax.imageio.ImageIO;
 import Main.EntradaTeclado;
 import Main.Painel;
 
-public class Player extends Entidade{
+public class Player extends Entidade {
     Painel p;
-    EntradaTeclado t;       
+    EntradaTeclado t;
 
     boolean pulando;
-    int posicaoPuloInic; 
+    int posicaoPuloInic;
     long tempoPuloInici;
-    int duracaoMaxPulo ;
-    int alturaMaxPulo ;
-    int larguraPlayer ;
-    int alturaPlayer ;
-    int alturaAgachado ;
-    int playerVelocidadeAgach ;
+    int duracaoMaxPulo;
+    int alturaMaxPulo;
+    int larguraPlayer;
+    int alturaPlayer;
+    int alturaAgachado;
+    int playerVelocidadeAgach;
     long tempoInicialSoco;
     long tempoMaxSoco;
     boolean agachado;
     boolean atacando;
 
-    public Player(Painel p, EntradaTeclado t){
+    public Player(Painel p, EntradaTeclado t) {
         this.p = p;
         this.t = t;
         setDefaultValues();
         getImagemPlayer();
-        
+
     }
 
-    public void setDefaultValues(){
+    public void setDefaultValues() {
         x = 500;
         y = 500;
         velocidade = 10;
@@ -45,130 +45,142 @@ public class Player extends Entidade{
         alturaMaxPulo = 300;
         larguraPlayer = 80 * p.escala;
         alturaPlayer = 128 * p.escala;
-        //alturaAgachado = alturaPlayer/2;
+        // alturaAgachado = alturaPlayer/2;
         playerVelocidadeAgach = 5;
         agachado = false;
         direcao = "dir";
-        tempoInicialSoco = 0; 
-        tempoMaxSoco = 150;
+        tempoInicialSoco = 0;
+        tempoMaxSoco = 200;
         atacando = false;
     }
 
-    public void getImagemPlayer(){
+    public void getImagemPlayer() {
         try {
-            paradoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoDir.png"));
-            paradoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoEsq.png"));
-            paradoAgachadoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoDir.png"));
-            paradoAgachadoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoEsq.png"));
-            socoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoDir.png"));
-            socoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoEsq.png"));
-            puloDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoDir.png"));
-            puloEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoEsq.png"));
-            
+            paradoDir = ImageIO.read(
+                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoDir.png"));
+            paradoEsq = ImageIO.read(
+                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoEsq.png"));
+            paradoAgachadoDir = ImageIO.read(new FileInputStream(
+                    "C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoDir.png"));
+            paradoAgachadoEsq = ImageIO.read(new FileInputStream(
+                    "C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoEsq.png"));
+            socoDir = ImageIO
+                    .read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoDir.png"));
+            socoEsq = ImageIO
+                    .read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoEsq.png"));
+            puloDir = ImageIO.read(
+                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoDir.png"));
+            puloEsq = ImageIO.read(
+                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoEsq.png"));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void Update(){
-        
-        if(t.cimaPress == true && pulando == false){
+    public void Update() {
+        // pular
+        if (t.cimaPress == true && pulando == false) {
             pulando = true;
             posicaoPuloInic = y;
 
-            if(direcao == "esq"){
+            if (direcao == "esq") {
                 direcao = "pulandoEsq";
-            }else if(direcao == "dir"){
+            } else if (direcao == "dir") {
                 direcao = "pulandoDir";
             }
-            
+
             tempoPuloInici = System.currentTimeMillis();
         }
 
-        if(pulando) {
+        if (pulando) {
             long tempoAtual = System.currentTimeMillis();
             long duracaoPulo = tempoAtual - tempoPuloInici;
-            double proporcaoTempoPulo = (double) duracaoPulo/duracaoMaxPulo;
+            double proporcaoTempoPulo = (double) duracaoPulo / duracaoMaxPulo;
             int alturaPulo = (int) (alturaMaxPulo * Math.sin(proporcaoTempoPulo * Math.PI));
 
-            if(direcao == "pulandoEsq"){
+            if (direcao == "pulandoEsq") {
                 x -= velocidade;
-            }else if(direcao == "pulandoDir"){
+            } else if (direcao == "pulandoDir") {
                 x += velocidade;
             }
-            
+
             y = posicaoPuloInic - alturaPulo;
 
-            if(duracaoPulo >= duracaoMaxPulo){
+            if (duracaoPulo >= duracaoMaxPulo) {
                 pulando = false;
                 y = posicaoPuloInic;
-                if(direcao == "pulandoDir"){
+                if (direcao == "pulandoDir") {
                     direcao = "dir";
-                }else if(direcao == "pulandoEsq"){
+                } else if (direcao == "pulandoEsq") {
                     direcao = "esq";
                 }
             }
-        }else{
-
-            if(t.socoPress == true && !pulando && !agachado && !atacando){
-                atacando = false;
+        } else {
+            // socar
+            if (t.socoPress && !pulando && !agachado && !atacando && !t.dirPress && !t.esqPress) {
+                atacando = true;
                 tempoInicialSoco = System.currentTimeMillis();
-                if(direcao == "dir"){
+                if (direcao == "dir") {
                     direcao = "socoDir";
-                }else if( direcao == "esq"){
+                } else if (direcao == "esq") {
                     direcao = "socoEsq";
                 }
-            }else{
-                if(direcao == "socoDir" || direcao == "socoEsq"){
-                    long tempoDecorridoSoco = System.currentTimeMillis() - tempoInicialSoco ;
-                    
-                    if(tempoDecorridoSoco >= tempoMaxSoco){
-                        atacando = false;
-                        if(direcao == "socoDir"){
-                            direcao = "dir";
-                        }else if(direcao == "socoEsq"){
-                            direcao = "esq";
-                        }
+            }
+
+            if (atacando) {
+                long tempoDecorridoSoco = System.currentTimeMillis() - tempoInicialSoco;
+
+                if (tempoDecorridoSoco >= tempoMaxSoco) {
+                    atacando = false;
+                    if (direcao == "socoDir") {
+                        direcao = "dir";
+                    } else if (direcao == "socoEsq") {
+                        direcao = "esq";
                     }
                 }
             }
-            
 
-            if(t.baixoPress == true && !agachado){
+            // agachar
+            else if (t.baixoPress == true && !agachado) {
                 agachado = true;
-                if(direcao == "dir"){
-                direcao = "agachadoDir";
-                }else if(direcao == "esq"){
-                direcao = "agachadoEsq";
-            }
-                
+                if (direcao == "dir") {
+                    direcao = "agachadoDir";
+                } else if (direcao == "esq") {
+                    direcao = "agachadoEsq";
+                }
+
                 velocidade = playerVelocidadeAgach;
-                }else if(!t.baixoPress && agachado){
-                    agachado = false;
-                    velocidade = 10;
-                }
-                
-                else if(t.esqPress == true){
-                    direcao = "esq";
-                x -= velocidade;
-
-                }else if(t.dirPress == true){
+            } else if (!t.baixoPress && agachado) {
+                agachado = false;
+                if (direcao == "agachadoDir") {
                     direcao = "dir";
-                x += velocidade;
-
+                } else if (direcao == "agachadoEsq") {
+                    direcao = "esq";
                 }
+                velocidade = 10;
+            }
+            // mover para esquerda
+            if (t.esqPress == true) {
+                direcao = "esq";
+                x -= velocidade;
+            }
+            // mover para direita
+            if (t.dirPress == true) {
+                direcao = "dir";
+                x += velocidade;
             }
         }
-    
+    }
 
-    public void draw(Graphics2D g2){
+    public void draw(Graphics2D g2) {
 
-       // g2.setColor(Color.white);
-        //g2.fillRect(x, y, larguraPlayer, alturaPlayer);
+        // g2.setColor(Color.white);
+        // g2.fillRect(x, y, larguraPlayer, alturaPlayer);
         BufferedImage imagem = null;
 
-        switch(direcao){
-            case "esq": 
+        switch (direcao) {
+            case "esq":
                 imagem = paradoEsq;
                 break;
 
@@ -178,25 +190,25 @@ public class Player extends Entidade{
 
             case "agachadoDir":
                 imagem = paradoAgachadoDir;
-            break;
-            
+                break;
+
             case "agachadoEsq":
                 imagem = paradoAgachadoEsq;
-            break;
+                break;
 
             case "pulandoDir":
                 imagem = puloDir;
-            break;
+                break;
 
             case "pulandoEsq":
                 imagem = puloEsq;
-            break;  
+                break;
             case "socoDir":
                 imagem = socoDir;
-            break;
+                break;
             case "socoEsq":
                 imagem = socoEsq;
-            break;
+                break;
         }
 
         g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
