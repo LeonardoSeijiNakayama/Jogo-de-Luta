@@ -172,14 +172,22 @@ public class Player extends Entidade {
 
             // mover para esquerda
             if (t.esqPress) {
-                direcao = "esq";
+                if(agachado){
+                    direcao = "agachadoEsq";
+                }else{
+                    direcao = "esq";
+                }
                 andando = true;
                 
                 x -= velocidade;
             }
             // mover para direita
             else if (t.dirPress) {
-                direcao = "dir";
+                if(agachado){
+                    direcao = "agachadoDir";
+                }else{
+                    direcao = "dir";
+                }
                 andando = true;
                 
                 x += velocidade;
