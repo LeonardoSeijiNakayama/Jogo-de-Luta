@@ -28,7 +28,7 @@ public class EntradaTeclado implements KeyListener{
         if(codigo == KeyEvent.VK_D){
             dirPress = true;
         }
-        if(codigo == KeyEvent.VK_Q){
+        if(codigo == KeyEvent.VK_T){
             socoPress = true;
         }
     }
@@ -50,7 +50,7 @@ public class EntradaTeclado implements KeyListener{
         if(codigo == KeyEvent.VK_D){
             dirPress = false;
         }
-        if(codigo == KeyEvent.VK_Q){
+        if(codigo == KeyEvent.VK_T){
             socoPress = false;
         }
     }

@@ -27,6 +27,7 @@ public class Player extends Entidade {
     long tempoMaxSoco;
     boolean agachado;
     boolean atacando;
+    boolean andando;
 
     public Player(Painel p, EntradaTeclado t) {
         this.p = p;
@@ -52,6 +53,7 @@ public class Player extends Entidade {
         tempoInicialSoco = 0;
         tempoMaxSoco = 200;
         atacando = false;
+        andando = false;
     }
 
     public void getImagemPlayer() {
@@ -80,7 +82,7 @@ public class Player extends Entidade {
 
     public void Update() {
         // pular
-        if (t.cimaPress == true && pulando == false) {
+        if (t.cimaPress == true && pulando == false && atacando == false) {
             pulando = true;
             posicaoPuloInic = y;
 
@@ -99,11 +101,13 @@ public class Player extends Entidade {
             double proporcaoTempoPulo = (double) duracaoPulo / duracaoMaxPulo;
             int alturaPulo = (int) (alturaMaxPulo * Math.sin(proporcaoTempoPulo * Math.PI));
 
-            if (direcao == "pulandoEsq") {
+            //System.out.println(andando);
+
+            if (direcao == "pulandoEsq" && andando) {
                 x -= velocidade;
-            } else if (direcao == "pulandoDir") {
+            } else if (direcao == "pulandoDir" && andando) {
                 x += velocidade;
-            }
+            } 
 
             y = posicaoPuloInic - alturaPulo;
 
@@ -118,7 +122,7 @@ public class Player extends Entidade {
             }
         } else {
             // socar
-            if (t.socoPress && !pulando && !agachado && !atacando && !t.dirPress && !t.esqPress) {
+            if (t.socoPress && !pulando && !agachado && !atacando && !andando) {
                 atacando = true;
                 tempoInicialSoco = System.currentTimeMillis();
                 if (direcao == "dir") {
@@ -126,6 +130,10 @@ public class Player extends Entidade {
                 } else if (direcao == "esq") {
                     direcao = "socoEsq";
                 }
+            }else if (t.socoPress && !pulando && !agachado && !atacando && t.dirPress && andando){
+                atacando = true;
+                tempoInicialSoco = System.currentTimeMillis();
+                direcao = "socoDir";
             }
 
             if (atacando) {
@@ -160,15 +168,25 @@ public class Player extends Entidade {
                 }
                 velocidade = 10;
             }
+
+            System.out.println(t.esqPress + " " + t.dirPress + "\n");
+
             // mover para esquerda
-            if (t.esqPress == true) {
+            if (t.esqPress) {
                 direcao = "esq";
+                andando = true;
+                //System.out.println(andando);
                 x -= velocidade;
             }
             // mover para direita
-            if (t.dirPress == true) {
+            else if (t.dirPress) {
                 direcao = "dir";
+                andando = true;
+                //System.out.println(andando);
                 x += velocidade;
+            }else if(!t.dirPress && !t.esqPress){
+                andando = false;
+                //System.out.println(andando);
             }
         }
     }
