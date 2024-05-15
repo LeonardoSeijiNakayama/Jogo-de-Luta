@@ -85,6 +85,11 @@ public class Player extends Entidade{
             double proporcaoTempoPulo = (double) duracaoPulo/duracaoMaxPulo;
             int alturaPulo = (int) (alturaMaxPulo * Math.sin(proporcaoTempoPulo * Math.PI));
 
+            if(direcao == "pulandoEsq"){
+                x -= velocidade;
+            }else if(direcao == "pulandoDir"){
+                x += velocidade;
+            }
             
             y = posicaoPuloInic - alturaPulo;
 
