@@ -42,7 +42,7 @@ public class Player extends Entidade {
         velocidade = 10;
         pulando = false;
         duracaoMaxPulo = 500;
-        alturaMaxPulo = 300;
+        alturaMaxPulo = 250;
         larguraPlayer = 80 * p.escala;
         alturaPlayer = 128 * p.escala;
         
