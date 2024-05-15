@@ -58,21 +58,19 @@ public class Player extends Entidade {
     public void getImagemPlayer() {
         try {
             paradoDir = ImageIO.read(
-                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoDir.png"));
+                    new FileInputStream("res/personagems/leoParadoDir.png"));
             paradoEsq = ImageIO.read(
-                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoEsq.png"));
-            paradoAgachadoDir = ImageIO.read(new FileInputStream(
-                    "C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoDir.png"));
-            paradoAgachadoEsq = ImageIO.read(new FileInputStream(
-                    "C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoEsq.png"));
+                    new FileInputStream("res/personagems/leoParadoEsq.png"));
+            paradoAgachadoDir = ImageIO.read(new FileInputStream("res/personagems/leoAgachadoParadoDir.png"));
+            paradoAgachadoEsq = ImageIO.read(new FileInputStream("res/personagems/leoAgachadoParadoEsq.png"));
             socoDir = ImageIO
-                    .read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoDir.png"));
+                    .read(new FileInputStream("res/personagems/leoSocoDir.png"));
             socoEsq = ImageIO
-                    .read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoEsq.png"));
+                    .read(new FileInputStream("res/personagems/leoSocoEsq.png"));
             puloDir = ImageIO.read(
-                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoDir.png"));
+                    new FileInputStream("res/personagems/leoPulandoDir.png"));
             puloEsq = ImageIO.read(
-                    new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoEsq.png"));
+                    new FileInputStream("res/personagems/leoPulandoEsq.png"));
 
         } catch (Exception e) {
             e.printStackTrace();
