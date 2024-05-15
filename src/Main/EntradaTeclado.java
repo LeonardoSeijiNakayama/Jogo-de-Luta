@@ -2,7 +2,7 @@ package Main;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.security.Key;
+
 
 public class EntradaTeclado implements KeyListener{
     public boolean cimaPress, esqPress, baixoPress, dirPress, socoPress;

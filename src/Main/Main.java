@@ -2,7 +2,6 @@ package Main;
 
 import javax.swing.JFrame;
 
-import Main.Painel;
 
 public class Main {
     public static void main(String[] args) {
