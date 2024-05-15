@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 import java.security.Key;
 
 public class EntradaTeclado implements KeyListener{
-    public boolean cimaPress, esqPress, baixoPress, dirPress;
+    public boolean cimaPress, esqPress, baixoPress, dirPress, socoPress;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -28,6 +28,9 @@ public class EntradaTeclado implements KeyListener{
         if(codigo == KeyEvent.VK_D){
             dirPress = true;
         }
+        if(codigo == KeyEvent.VK_Q){
+            socoPress = true;
+        }
     }
 
     @Override
@@ -46,6 +49,9 @@ public class EntradaTeclado implements KeyListener{
         }
         if(codigo == KeyEvent.VK_D){
             dirPress = false;
+        }
+        if(codigo == KeyEvent.VK_Q){
+            socoPress = false;
         }
     }
     

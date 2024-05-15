@@ -40,9 +40,9 @@ public class Player extends Entidade{
         pulando = false;
         duracaoMaxPulo = 500;
         alturaMaxPulo = 300;
-        larguraPlayer = p.tamTile*2;
-        alturaPlayer = p.tamTile*4;
-        alturaAgachado = alturaPlayer/2;
+        larguraPlayer = 80 * p.escala;
+        alturaPlayer = 128 * p.escala;
+        //alturaAgachado = alturaPlayer/2;
         playerVelocidadeAgach = 5;
         agachado = false;
         direcao = "dir";
@@ -50,10 +50,14 @@ public class Player extends Entidade{
 
     public void getImagemPlayer(){
         try {
-            paradoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/lutadorParadoDir.png"));
-            paradoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/lutadorParadoEsq.png"));
-            paradoAgachadoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/lutadorParadoAgachadoDir.png"));
-            paradoAgachadoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/lutadorParadoAgachadoEsq.png"));
+            paradoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoDir.png"));
+            paradoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoParadoEsq.png"));
+            paradoAgachadoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoDir.png"));
+            paradoAgachadoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoAgachadoParadoEsq.png"));
+            socoDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoDir.png"));
+            socoEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoSocoEsq.png"));
+            puloDir = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoDir.png"));
+            puloEsq = ImageIO.read(new FileInputStream("C:/Users/leona/Desktop/POO/testeJframe/res/personagems/leoPulandoEsq.png"));
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -65,6 +69,12 @@ public class Player extends Entidade{
         if(t.cimaPress == true && pulando == false){
             pulando = true;
             posicaoPuloInic = y;
+
+            if(direcao == "esq"){
+                direcao = "pulandoEsq";
+            }else if(direcao == "dir"){
+                direcao = "pulandoDir";
+            }
             
             tempoPuloInici = System.currentTimeMillis();
         }
@@ -75,11 +85,17 @@ public class Player extends Entidade{
             double proporcaoTempoPulo = (double) duracaoPulo/duracaoMaxPulo;
             int alturaPulo = (int) (alturaMaxPulo * Math.sin(proporcaoTempoPulo * Math.PI));
 
+            
             y = posicaoPuloInic - alturaPulo;
 
             if(duracaoPulo >= duracaoMaxPulo){
                 pulando = false;
                 y = posicaoPuloInic;
+                if(direcao == "pulandoDir"){
+                    direcao = "dir";
+                }else if(direcao == "pulandoEsq"){
+                    direcao = "esq";
+                }
                 
 
             }
@@ -87,12 +103,15 @@ public class Player extends Entidade{
         }else{
             if(t.baixoPress == true && !agachado){
             agachado = true;
-            direcao = "agachado";
-            alturaPlayer = alturaAgachado;
+            if(direcao == "dir"){
+                direcao = "agachadoDir";
+            }else if(direcao == "esq"){
+                direcao = "agachadoEsq";
+            }
+            
             velocidade = playerVelocidadeAgach;
             }else if(!t.baixoPress && agachado){
                 agachado = false;
-                alturaPlayer = p.tamTile*4;
                 velocidade = 10;
             }
             
@@ -123,6 +142,22 @@ public class Player extends Entidade{
             case "dir":
                 imagem = paradoDir;
                 break;
+
+            case "agachadoDir":
+                imagem = paradoAgachadoDir;
+            break;
+            
+            case "agachadoEsq":
+                imagem = paradoAgachadoEsq;
+            break;
+
+            case "pulandoDir":
+                imagem = puloDir;
+            break;
+
+            case "pulandoEsq":
+                imagem = puloEsq;
+            break;  
         }
 
         g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);

@@ -6,6 +6,6 @@ public class Entidade {
     public int x, y;
     public int velocidade;
 
-    public BufferedImage paradoDir, paradoEsq, paradoAgachadoDir, paradoAgachadoEsq;
+    public BufferedImage paradoDir, paradoEsq, paradoAgachadoDir, paradoAgachadoEsq, socoDir, socoEsq, puloDir, puloEsq;
     public String direcao;
 }
