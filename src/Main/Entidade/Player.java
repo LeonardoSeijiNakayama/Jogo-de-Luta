@@ -50,7 +50,7 @@ public class Player extends Entidade{
         agachado = false;
         direcao = "dir";
         tempoInicialSoco = 0; 
-        tempoMaxSoco = 250;
+        tempoMaxSoco = 150;
         atacando = false;
     }
 
@@ -111,7 +111,7 @@ public class Player extends Entidade{
         }else{
 
             if(t.socoPress == true && !pulando && !agachado && !atacando){
-                atacando = true;
+                atacando = false;
                 tempoInicialSoco = System.currentTimeMillis();
                 if(direcao == "dir"){
                     direcao = "socoDir";
