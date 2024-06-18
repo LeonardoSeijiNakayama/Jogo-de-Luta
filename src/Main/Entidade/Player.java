@@ -1,6 +1,7 @@
 package Main.Entidade;
 
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 
@@ -8,6 +9,7 @@ import javax.imageio.ImageIO;
 
 import Main.EntradaTeclado;
 import Main.Painel;
+import javafx.scene.transform.AffineBuilder;
 
 public class Player extends Entidade {
     Painel p;
@@ -45,7 +47,7 @@ public class Player extends Entidade {
         alturaMaxPulo = 250;
         larguraPlayer = 80 * p.escala;
         alturaPlayer = 128 * p.escala;
-        
+
         playerVelocidadeAgach = 5;
         agachado = false;
         direcao = "dir";
@@ -98,13 +100,11 @@ public class Player extends Entidade {
             double proporcaoTempoPulo = (double) duracaoPulo / duracaoMaxPulo;
             int alturaPulo = (int) (alturaMaxPulo * Math.sin(proporcaoTempoPulo * Math.PI));
 
-            
-
             if (direcao == "pulandoEsq" && andando) {
                 x -= velocidade;
             } else if (direcao == "pulandoDir" && andando) {
                 x += velocidade;
-            } 
+            }
 
             y = posicaoPuloInic - alturaPulo;
 
@@ -127,7 +127,7 @@ public class Player extends Entidade {
                 } else if (direcao == "esq") {
                     direcao = "socoEsq";
                 }
-            }else if (t.socoPress && !pulando && !agachado && !atacando && t.dirPress && andando){
+            } else if (t.socoPress && !pulando && !agachado && !atacando && t.dirPress && andando) {
                 atacando = true;
                 tempoInicialSoco = System.currentTimeMillis();
                 direcao = "socoDir";
@@ -166,32 +166,30 @@ public class Player extends Entidade {
                 velocidade = 10;
             }
 
-            
-
             // mover para esquerda
             if (t.esqPress) {
-                if(agachado){
+                if (agachado) {
                     direcao = "agachadoEsq";
-                }else{
+                } else {
                     direcao = "esq";
                 }
                 andando = true;
-                
+
                 x -= velocidade;
             }
             // mover para direita
             else if (t.dirPress) {
-                if(agachado){
+                if (agachado) {
                     direcao = "agachadoDir";
-                }else{
+                } else {
                     direcao = "dir";
                 }
                 andando = true;
-                
+
                 x += velocidade;
-            }else if(!t.dirPress && !t.esqPress){
+            } else if (!t.dirPress && !t.esqPress) {
                 andando = false;
-                
+
             }
         }
     }
@@ -201,40 +199,53 @@ public class Player extends Entidade {
         // g2.setColor(Color.white);
         // g2.fillRect(x, y, larguraPlayer, alturaPlayer);
         BufferedImage imagem = null;
+        AffineTransform transform = new AffineTransform();
 
         switch (direcao) {
             case "esq":
                 imagem = paradoEsq;
+                g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
                 break;
 
             case "dir":
                 imagem = paradoDir;
+                g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
                 break;
 
             case "agachadoDir":
                 imagem = paradoAgachadoDir;
+                g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
                 break;
 
             case "agachadoEsq":
                 imagem = paradoAgachadoEsq;
+                g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
                 break;
 
             case "pulandoDir":
                 imagem = puloDir;
+                transform.translate(x, y);
+                transform.scale(0.2, 0.2);
+                transform.rotate(Math.toRadians(25), imagem.getWidth() / 2, imagem.getHeight() / 2);
+                g2.drawImage(imagem, transform, null);
                 break;
 
             case "pulandoEsq":
                 imagem = puloEsq;
+                transform.translate(x, y);
+                transform.scale(0.2, 0.2);
+                transform.rotate(Math.toRadians(-15), imagem.getWidth() / 2, imagem.getHeight() / 2);
+                g2.drawImage(imagem, transform, null);
                 break;
             case "socoDir":
                 imagem = socoDir;
+                g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
                 break;
             case "socoEsq":
                 imagem = socoEsq;
+                g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
                 break;
         }
-
-        g2.drawImage(imagem, x, y, larguraPlayer, alturaPlayer, null);
 
     }
 }
