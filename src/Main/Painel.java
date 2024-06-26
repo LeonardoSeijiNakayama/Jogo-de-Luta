@@ -9,6 +9,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import Main.Entidade.Player;
+import Main.Tile.TileManager;
 
 public class Painel extends JPanel implements Runnable{
 
@@ -25,6 +26,7 @@ public class Painel extends JPanel implements Runnable{
     EntradaTeclado teclado = new EntradaTeclado();
     Thread threadJogo;
     Player player = new Player(this, teclado);
+    TileManager tileManager = new TileManager(this);
 
 
     
@@ -93,7 +95,9 @@ public class Painel extends JPanel implements Runnable{
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
+        tileManager.draw(g2);
         player.draw(g2);
+        
        
         g2.dispose();
 

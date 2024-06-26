@@ -2,6 +2,7 @@ package Main.Entidade;
 
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 
@@ -63,8 +64,10 @@ public class Player extends Entidade {
                     new FileInputStream("res/personagems/leoParadoDir.png"));
             paradoEsq = ImageIO.read(
                     new FileInputStream("res/personagems/leoParadoEsq.png"));
-            paradoAgachadoDir = ImageIO.read(new FileInputStream("res/personagems/leoAgachadoParadoDir.png"));
-            paradoAgachadoEsq = ImageIO.read(new FileInputStream("res/personagems/leoAgachadoParadoEsq.png"));
+            paradoAgachadoDir = ImageIO.read(
+                    new FileInputStream("res/personagems/leoAgachadoParadoDir.png"));
+            paradoAgachadoEsq = ImageIO.read(
+                    new FileInputStream("res/personagems/leoAgachadoParadoEsq.png"));
             socoDir = ImageIO
                     .read(new FileInputStream("res/personagems/leoSocoDir.png"));
             socoEsq = ImageIO
@@ -200,6 +203,7 @@ public class Player extends Entidade {
         // g2.fillRect(x, y, larguraPlayer, alturaPlayer);
         BufferedImage imagem = null;
         AffineTransform transform = new AffineTransform();
+        
 
         switch (direcao) {
             case "esq":
