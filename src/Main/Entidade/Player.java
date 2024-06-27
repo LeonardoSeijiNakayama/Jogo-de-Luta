@@ -1,6 +1,7 @@
 package Main.Entidade;
 
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -36,12 +37,13 @@ public class Player extends Entidade {
         this.t = t;
         setDefaultValues();
         getImagemPlayer();
+        areaSolida = new Rectangle(21, 60, 132, 321);
 
     }
 
     public void setDefaultValues() {
         x = 500;
-        y = 500;
+        y = 420;
         velocidade = 10;
         pulando = false;
         duracaoMaxPulo = 500;
@@ -195,6 +197,9 @@ public class Player extends Entidade {
 
             }
         }
+
+        colisao = false;
+        p.checaCol.checaTile(this);
     }
 
     public void draw(Graphics2D g2) {

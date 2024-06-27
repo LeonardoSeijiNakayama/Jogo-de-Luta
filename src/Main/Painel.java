@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 
 import javax.swing.JPanel;
 
+import Background.BackgroundManager;
 import Main.Entidade.Player;
 import Main.Tile.TileManager;
 
@@ -16,7 +17,7 @@ public class Painel extends JPanel implements Runnable{
     public final int tamTileOG = 32;
     public final int escala = 3;
     public final int tamTile = tamTileOG * escala; 
-    public final int colMaxTela = 12;
+    public final int colMaxTela = 10;
     public final int linhaMaxTela = 18;
     public final int larguraMaxJanela = tamTile * linhaMaxTela;
     public final int alturaMaxJanela = tamTile * colMaxTela;
@@ -25,8 +26,10 @@ public class Painel extends JPanel implements Runnable{
 
     EntradaTeclado teclado = new EntradaTeclado();
     Thread threadJogo;
+    public ChecadorDeColisao checaCol = new ChecadorDeColisao(this);
     Player player = new Player(this, teclado);
     TileManager tileManager = new TileManager(this);
+    BackgroundManager backgroundManager = new BackgroundManager(this);
 
 
     
@@ -55,9 +58,6 @@ public class Painel extends JPanel implements Runnable{
         threadJogo.start();
     }
 
-    public void carregaImagem(){
-
-    }
 
     @Override
     public void run() {
@@ -95,6 +95,7 @@ public class Painel extends JPanel implements Runnable{
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
+        backgroundManager.draw(g2);
         tileManager.draw(g2);
         player.draw(g2);
         

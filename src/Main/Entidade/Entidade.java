@@ -1,5 +1,6 @@
 package Main.Entidade;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 public class Entidade {
@@ -8,4 +9,7 @@ public class Entidade {
 
     public BufferedImage paradoDir, paradoEsq, paradoAgachadoDir, paradoAgachadoEsq, socoDir, socoEsq, puloDir, puloEsq;
     public String direcao;
+
+    public Rectangle areaSolida;
+    public boolean colisao = false;
 }
