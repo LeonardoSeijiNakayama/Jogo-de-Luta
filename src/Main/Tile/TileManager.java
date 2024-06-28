@@ -44,16 +44,17 @@ public class TileManager {
 
         int col = 0, linha = 0, x =0, y =0;
 
-        while(col <= pj.alturaMaxJanela && linha < pj.larguraMaxJanela){
+        while(col < pj.colMaxTela  && linha < pj.linhaMaxTela){
+            
             g2.drawImage(tile[0].image, x, y, pj.tamTile, pj.tamTile, null);
-            col++;
+            linha++;
             x +=pj.tamTile;
 
-            if(col == pj.alturaMaxJanela){
+            if(linha == (pj.linhaMaxTela)){
                 
                 y += pj.tamTile;
-                linha++;
-                col = 0;
+                col++;
+                linha = 0;
                 x=0;
                 
             }
@@ -61,14 +62,13 @@ public class TileManager {
             
             
         }
-
+        
 
         for(int i = 0; i < pj.larguraMaxJanela ; i++){
             if(i % 32 == 0){
-                g2.drawImage(tile[1].image, i, 800, pj.tamTile, pj.tamTile, null);
-                g2.drawImage(tile[2].image, i, 864, pj.tamTile, pj.tamTile, null);
-                g2.drawImage(tile[0].image, -86, i, pj.tamTile, pj.tamTile, null);
-                g2.drawImage(tile[0].image, 1718, i, pj.tamTile, pj.tamTile, null);
+                g2.drawImage(tile[1].image, i, (pj.alturaMaxJanela-(2*pj.tamTile)), pj.tamTile, pj.tamTile, null);
+                g2.drawImage(tile[2].image, i, (pj.alturaMaxJanela-pj.tamTile), pj.tamTile, pj.tamTile, null);
+                
                 
             }
             

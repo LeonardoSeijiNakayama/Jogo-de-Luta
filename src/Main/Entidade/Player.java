@@ -43,15 +43,15 @@ public class Player extends Entidade {
 
     public void setDefaultValues() {
         x = 500;
-        y = 420;
-        velocidade = 10;
+        y = (p.alturaMaxJanela-(p.tamTile*6));
+        velocidade = (int)(p.tamTile*0.14);
         pulando = false;
         duracaoMaxPulo = 500;
-        alturaMaxPulo = 250;
+        alturaMaxPulo = p.tamTile*4;;
         larguraPlayer = 80 * p.escala;
         alturaPlayer = 128 * p.escala;
 
-        playerVelocidadeAgach = 5;
+        playerVelocidadeAgach = (int)(p.tamTile*0.07);
         agachado = false;
         direcao = "dir";
         tempoInicialSoco = 0;
@@ -208,7 +208,9 @@ public class Player extends Entidade {
         // g2.fillRect(x, y, larguraPlayer, alturaPlayer);
         BufferedImage imagem = null;
         AffineTransform transform = new AffineTransform();
-        
+        double escalapulo;
+
+        escalapulo = ((double)p.escala*0.15)/2;
 
         switch (direcao) {
             case "esq":
@@ -234,7 +236,7 @@ public class Player extends Entidade {
             case "pulandoDir":
                 imagem = puloDir;
                 transform.translate(x, y);
-                transform.scale(0.2, 0.2);
+                transform.scale(escalapulo, escalapulo);
                 transform.rotate(Math.toRadians(25), imagem.getWidth() / 2, imagem.getHeight() / 2);
                 g2.drawImage(imagem, transform, null);
                 break;
@@ -242,7 +244,7 @@ public class Player extends Entidade {
             case "pulandoEsq":
                 imagem = puloEsq;
                 transform.translate(x, y);
-                transform.scale(0.2, 0.2);
+                transform.scale(escalapulo, escalapulo);
                 transform.rotate(Math.toRadians(-15), imagem.getWidth() / 2, imagem.getHeight() / 2);
                 g2.drawImage(imagem, transform, null);
                 break;

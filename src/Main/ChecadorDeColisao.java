@@ -19,6 +19,7 @@ public class ChecadorDeColisao {
         int entidadeColunaDir = entidadeDirX/pj.tamTile;
         int entidadeLinhaTopo = entidadeTopoY/pj.tamTile;
         int entidadeLinhaFundo = entidadeFundoY/pj.tamTile;
+        
 
         int numTile1, numTile2;
 

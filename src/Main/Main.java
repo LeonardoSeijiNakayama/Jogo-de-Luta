@@ -16,6 +16,7 @@ public class Main {
         janela.pack();
         janela.setLocationRelativeTo(null);
         janela.setVisible(true);
+        
 
         painel.iniciaThreadJogo();
     }

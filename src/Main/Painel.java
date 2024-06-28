@@ -15,10 +15,10 @@ import Main.Tile.TileManager;
 public class Painel extends JPanel implements Runnable{
 
     public final int tamTileOG = 32;
-    public final int escala = 3;
+    public final int escala = 2;
     public final int tamTile = tamTileOG * escala; 
     public final int colMaxTela = 12;
-    public final int linhaMaxTela = 16;
+    public final int linhaMaxTela = 20;
     public final int larguraMaxJanela = tamTile * linhaMaxTela;
     public final int alturaMaxJanela = tamTile * colMaxTela;
 
