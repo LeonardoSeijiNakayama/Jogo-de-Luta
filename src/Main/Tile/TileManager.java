@@ -1,7 +1,6 @@
 package Main.Tile;
 
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.io.FileInputStream;
 import java.io.IOException;
 
@@ -24,7 +23,7 @@ public class TileManager {
     public void GetImagemTile(){
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(new FileInputStream("res/tiles/EarthTile.png"));
+            tile[0].image = null;
             tile[0].colisao = true;
 
             tile[1] = new Tile();
@@ -42,6 +41,27 @@ public class TileManager {
     }
 
     public void draw(Graphics2D g2){
+
+        int col = 0, linha = 0, x =0, y =0;
+
+        while(col <= pj.alturaMaxJanela && linha < pj.larguraMaxJanela){
+            g2.drawImage(tile[0].image, x, y, pj.tamTile, pj.tamTile, null);
+            col++;
+            x +=pj.tamTile;
+
+            if(col == pj.alturaMaxJanela){
+                
+                y += pj.tamTile;
+                linha++;
+                col = 0;
+                x=0;
+                
+            }
+
+            
+            
+        }
+
 
         for(int i = 0; i < pj.larguraMaxJanela ; i++){
             if(i % 32 == 0){
