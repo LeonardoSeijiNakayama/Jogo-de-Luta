@@ -168,7 +168,7 @@ public class Player extends Entidade {
                 } else if (direcao == "agachadoEsq") {
                     direcao = "esq";
                 }
-                velocidade = 10;
+                velocidade = (int)(p.tamTile*0.14);
             }
 
             // mover para esquerda
