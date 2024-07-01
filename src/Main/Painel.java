@@ -24,10 +24,12 @@ public class Painel extends JPanel implements Runnable{
 
     int FPS = 60;
 
-    EntradaTeclado teclado = new EntradaTeclado();
+    EntradaTeclado teclado1 = new EntradaTeclado(1);
+    EntradaTeclado teclado2 = new EntradaTeclado(2);
     Thread threadJogo;
     public ChecadorDeColisao checaCol = new ChecadorDeColisao(this);
-    Player player = new Player(this, teclado);
+    Player player = new Player(this, teclado1, 1);
+    Player player2 = new Player(this, teclado2, 2);
     TileManager tileManager = new TileManager(this);
     BackgroundManager backgroundManager = new BackgroundManager(this);
 
@@ -49,7 +51,8 @@ public class Painel extends JPanel implements Runnable{
         this.setBackground(Color.BLUE);
         this.setDoubleBuffered(true);
         this.setVisible(true);
-        this.addKeyListener(teclado);
+        this.addKeyListener(teclado1);
+        this.addKeyListener(teclado2);
         this.setFocusable(true);
     }
 
@@ -88,6 +91,7 @@ public class Painel extends JPanel implements Runnable{
 
     public void update(){
         player.Update();
+        player2.Update();
         
     }
 
@@ -98,6 +102,7 @@ public class Painel extends JPanel implements Runnable{
         backgroundManager.draw(g2);
         tileManager.draw(g2);
         player.draw(g2);
+        player2.draw(g2);
         
        
         g2.dispose();

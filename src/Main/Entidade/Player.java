@@ -31,18 +31,28 @@ public class Player extends Entidade {
     boolean agachado;
     boolean atacando;
     boolean andando;
+    int numPlayer;
 
-    public Player(Painel p, EntradaTeclado t) {
+    public Player(Painel p, EntradaTeclado t, int n) {
         this.p = p;
         this.t = t;
+        this.numPlayer = n;
         setDefaultValues();
         getImagemPlayer();
         areaSolida = new Rectangle(21, 60, 132, 321);
+        
 
     }
 
     public void setDefaultValues() {
-        x = 500;
+        if (numPlayer == 1){
+            x = 250;
+            direcao = "dir";
+        }else if(numPlayer == 2){
+            x = 850;
+            direcao = "esq";
+        }
+        
         y = (p.alturaMaxJanela-(p.tamTile*6));
         velocidade = (int)(p.tamTile*0.14);
         pulando = false;
@@ -53,7 +63,7 @@ public class Player extends Entidade {
 
         playerVelocidadeAgach = (int)(p.tamTile*0.07);
         agachado = false;
-        direcao = "dir";
+        
         tempoInicialSoco = 0;
         tempoMaxSoco = 200;
         atacando = false;
@@ -105,11 +115,11 @@ public class Player extends Entidade {
             double proporcaoTempoPulo = (double) duracaoPulo / duracaoMaxPulo;
             int alturaPulo = (int) (alturaMaxPulo * Math.sin(proporcaoTempoPulo * Math.PI));
 
-            if (direcao == "pulandoEsq" && andando) {
-                x -= velocidade;
-            } else if (direcao == "pulandoDir" && andando) {
-                x += velocidade;
-            }
+            // if (direcao == "pulandoEsq" && andando) {
+            //     x -= velocidade;
+            // } else if (direcao == "pulandoDir" && andando) {
+            //     x += velocidade;
+            // }
 
             y = posicaoPuloInic - alturaPulo;
 
@@ -180,7 +190,7 @@ public class Player extends Entidade {
                 }
                 andando = true;
 
-                x -= velocidade;
+                
             }
             // mover para direita
             else if (t.dirPress) {
@@ -191,7 +201,7 @@ public class Player extends Entidade {
                 }
                 andando = true;
 
-                x += velocidade;
+                
             } else if (!t.dirPress && !t.esqPress) {
                 andando = false;
 
@@ -200,6 +210,34 @@ public class Player extends Entidade {
 
         colisao = false;
         p.checaCol.checaTile(this);
+
+        if(colisao == false && andando == true||colisao == false && pulando == true){
+            switch(direcao){
+                case "esq":
+                    x -= velocidade;
+                break;
+
+                case "dir":
+                    x += velocidade;
+                break;
+
+                case "agachadoDir":
+                    x +=playerVelocidadeAgach;
+                break;
+                
+                case "agachadoEsq":
+                    x -=playerVelocidadeAgach;
+                break;
+
+                case "pulandoDir":
+                    x+=velocidade;
+                break;
+
+                case "pulandoEsq":
+                    x-=velocidade;
+                break;
+            }
+        }
     }
 
     public void draw(Graphics2D g2) {
