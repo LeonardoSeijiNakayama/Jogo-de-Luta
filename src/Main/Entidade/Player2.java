@@ -14,7 +14,7 @@ import Main.EntradaTeclado;
 import Main.Painel;
 //mport javax.scene.transform.AffineBuilder;
 
-public class Player extends Entidade {
+public class Player2 extends Entidade {
     Painel p;
     EntradaTeclado t;
 
@@ -29,11 +29,12 @@ public class Player extends Entidade {
     boolean agachado;
     boolean atacando;
     boolean andando;
-    int numPlayer;
+    
 
-    public Player(Painel p, EntradaTeclado t) {
+    public Player2(Painel p, EntradaTeclado t) {
         this.p = p;
         this.t = t;
+        
         setDefaultValues();
         getImagemPlayer();
         areaSolida = new Rectangle(8*p.escala, 20*p.escala, 47*p.escala, 108*p.escala);
@@ -48,16 +49,14 @@ public class Player extends Entidade {
 
     public void setDefaultValues() {
         
-            x = 1056;
-            direcao = "dir";
-        
-
+           
+        direcao = "esq";
+        x = 850;
         y = (p.alturaMaxJanela - (p.tamTile * 6));
         velocidade = (int) (p.tamTile * 0.14);
         pulando = false;
         duracaoMaxPulo = 500;
         alturaMaxPulo = p.tamTile * 4;
-        ;
         larguraEntidade = 80 * p.escala;
         alturaEntidade = 128 * p.escala;
 

@@ -1,5 +1,7 @@
 package Main;
 
+
+
 import Main.Entidade.Entidade;
 
 public class ChecadorDeColisao {
@@ -10,13 +12,24 @@ public class ChecadorDeColisao {
     }
 
     public void checaTile(Entidade entidade) {
-        int entidadeEsqX = entidade.x + entidade.areaSolida.x;
-        int entidadeDirX = entidade.x + entidade.areaSolida.x + entidade.areaSolida.width;
+
+        //CALCULOS DA AREA DE COLISAO DO PPLAYER
+
+        int entidadeDirXEsq = entidade.x + entidade.areaSolida.x;
+        int entidadeDirXDir = entidade.x + entidade.areaSolida.x + entidade.areaSolida.width;
+
+        int entidadeEsqXEsq = entidade.x + (entidade.larguraEntidade - (entidade.areaSolida.width + entidade.areaSolida.x));
+        int entidadeEsqXDir = entidade.x + entidade.larguraEntidade - entidade.areaSolida.x;
+
         int entidadeTopoY = entidade.y + entidade.areaSolida.y;
         int entidadeFundoY = entidade.y + entidade.areaSolida.y + entidade.areaSolida.height;
 
-        int entidadeColunaEsq = entidadeEsqX / pj.tamTile;
-        int entidadeColunaDir = entidadeDirX / pj.tamTile;
+        int entidadeDirColunaEsq = entidadeDirXEsq / pj.tamTile;
+        int entidadeDirColunaDir = entidadeDirXDir / pj.tamTile;
+
+        int entidadeEsqColunaEsq = entidadeEsqXEsq / pj.tamTile;
+        int entidadeEsqColunaDir = entidadeEsqXDir / pj.tamTile;
+
         int entidadeLinhaTopo = entidadeTopoY / pj.tamTile;
         int entidadeLinhaFundo = entidadeFundoY / pj.tamTile;
 
@@ -24,9 +37,12 @@ public class ChecadorDeColisao {
 
         switch (entidade.direcao) {
             case "esq":
-                entidadeColunaEsq = (entidadeEsqX - entidade.velocidade) / pj.tamTile;
-                numTile1 = pj.tileManager.numTilesMapa[entidadeColunaEsq][entidadeLinhaTopo];
-                numTile2 = pj.tileManager.numTilesMapa[entidadeColunaEsq][entidadeLinhaFundo];
+                entidadeEsqColunaEsq = (entidadeEsqXEsq - entidade.velocidade) / pj.tamTile;
+                numTile1 = pj.tileManager.numTilesMapa[entidadeEsqColunaEsq][entidadeLinhaTopo];
+                numTile2 = pj.tileManager.numTilesMapa[entidadeEsqColunaEsq][entidadeLinhaFundo];
+                
+
+               
 
                 if (pj.tileManager.tile[numTile1].colisao == true || pj.tileManager.tile[numTile2].colisao == true) {
                     entidade.colisao = true;
@@ -35,9 +51,9 @@ public class ChecadorDeColisao {
                 break;
 
             case "dir":
-                entidadeColunaDir = (entidadeDirX - entidade.velocidade) / pj.tamTile;
-                numTile1 = pj.tileManager.numTilesMapa[entidadeColunaDir][entidadeLinhaTopo];
-                numTile2 = pj.tileManager.numTilesMapa[entidadeColunaDir][entidadeLinhaFundo];
+                entidadeDirColunaDir = (entidadeDirXDir - entidade.velocidade) / pj.tamTile;
+                numTile1 = pj.tileManager.numTilesMapa[entidadeDirColunaDir][entidadeLinhaTopo];
+                numTile2 = pj.tileManager.numTilesMapa[entidadeDirColunaDir][entidadeLinhaFundo];
 
                 if (pj.tileManager.tile[numTile1].colisao == true || pj.tileManager.tile[numTile2].colisao == true) {
                     entidade.colisao = true;
@@ -46,9 +62,9 @@ public class ChecadorDeColisao {
                 break;
 
             case "agachadoDir":
-                entidadeColunaDir = (entidadeDirX - entidade.velocidade) / pj.tamTile;
-                numTile1 = pj.tileManager.numTilesMapa[entidadeColunaDir][entidadeLinhaTopo];
-                numTile2 = pj.tileManager.numTilesMapa[entidadeColunaDir][entidadeLinhaFundo];
+                entidadeDirColunaDir = (entidadeDirXDir - entidade.velocidade) / pj.tamTile;
+                numTile1 = pj.tileManager.numTilesMapa[entidadeDirColunaDir][entidadeLinhaTopo];
+                numTile2 = pj.tileManager.numTilesMapa[entidadeDirColunaDir][entidadeLinhaFundo];
 
                 if (pj.tileManager.tile[numTile1].colisao == true || pj.tileManager.tile[numTile2].colisao == true) {
                     entidade.colisao = true;
@@ -56,9 +72,9 @@ public class ChecadorDeColisao {
                 break;
 
             case "agachadoEsq":
-                entidadeColunaEsq = (entidadeEsqX - entidade.velocidade) / pj.tamTile;
-                numTile1 = pj.tileManager.numTilesMapa[entidadeColunaEsq][entidadeLinhaTopo];
-                numTile2 = pj.tileManager.numTilesMapa[entidadeColunaEsq][entidadeLinhaFundo];
+                entidadeEsqColunaEsq = (entidadeEsqXEsq - entidade.velocidade) / pj.tamTile;
+                numTile1 = pj.tileManager.numTilesMapa[entidadeEsqColunaEsq][entidadeLinhaTopo];
+                numTile2 = pj.tileManager.numTilesMapa[entidadeEsqColunaEsq][entidadeLinhaFundo];
 
                 if (pj.tileManager.tile[numTile1].colisao == true || pj.tileManager.tile[numTile2].colisao == true) {
                     entidade.colisao = true;
@@ -66,9 +82,9 @@ public class ChecadorDeColisao {
                 break;
 
             case "pulandoDir":
-                entidadeColunaDir = (entidadeDirX - entidade.velocidade) / pj.tamTile;
-                numTile1 = pj.tileManager.numTilesMapa[entidadeColunaDir][entidadeLinhaTopo];
-                numTile2 = pj.tileManager.numTilesMapa[entidadeColunaDir][entidadeLinhaFundo];
+                entidadeDirColunaDir = (entidadeDirXDir - entidade.velocidade) / pj.tamTile;
+                numTile1 = pj.tileManager.numTilesMapa[entidadeDirColunaDir][entidadeLinhaTopo];
+                numTile2 = pj.tileManager.numTilesMapa[entidadeDirColunaDir][entidadeLinhaFundo];
 
                 if (pj.tileManager.tile[numTile1].colisao == true || pj.tileManager.tile[numTile2].colisao == true) {
                     entidade.colisao = true;
@@ -76,15 +92,21 @@ public class ChecadorDeColisao {
                 break;
 
             case "pulandoEsq":
-                entidadeColunaEsq = (entidadeEsqX - entidade.velocidade) / pj.tamTile;
-                numTile1 = pj.tileManager.numTilesMapa[entidadeColunaEsq][entidadeLinhaTopo];
-                numTile2 = pj.tileManager.numTilesMapa[entidadeColunaEsq][entidadeLinhaFundo];
+                entidadeEsqColunaEsq = (entidadeEsqXEsq - entidade.velocidade) / pj.tamTile;
+                numTile1 = pj.tileManager.numTilesMapa[entidadeEsqColunaEsq][entidadeLinhaTopo];
+                numTile2 = pj.tileManager.numTilesMapa[entidadeEsqColunaEsq][entidadeLinhaFundo];
 
                 if (pj.tileManager.tile[numTile1].colisao == true || pj.tileManager.tile[numTile2].colisao == true) {
                     entidade.colisao = true;
                 }
                 break;
 
+            
         }
+
+        
     }
+
+    
+   
 }

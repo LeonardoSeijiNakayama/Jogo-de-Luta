@@ -30,7 +30,7 @@ public class TileManager {
     public void GetImagemTile(){
         try {
             tile[0] = new Tile();
-            tile[0].image = null;
+            tile[0].image = ImageIO.read(new FileInputStream("res/tiles/EarthTile.png"));
             tile[0].colisao = true;
 
             tile[1] = new Tile();

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import Background.BackgroundManager;
 import Main.Entidade.Player;
+import Main.Entidade.Player2;
 import Main.Tile.TileManager;
 
 public class Painel extends JPanel implements Runnable{
@@ -28,8 +29,8 @@ public class Painel extends JPanel implements Runnable{
     EntradaTeclado teclado2 = new EntradaTeclado(2);
     Thread threadJogo;
     public ChecadorDeColisao checaCol = new ChecadorDeColisao(this);
-    Player player = new Player(this, teclado1, 1);
-    Player player2 = new Player(this, teclado2, 2);
+    Player player = new Player(this, teclado1);
+    Player2 player2 = new Player2(this, teclado2);
     TileManager tileManager = new TileManager(this);
     BackgroundManager backgroundManager = new BackgroundManager(this);
 
